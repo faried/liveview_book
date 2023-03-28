@@ -1,17 +1,15 @@
 defmodule PentoWeb.WrongLive do
   use PentoWeb, :live_view
 
-  def mount(_params, session, socket) do
+  def mount(_params, _session, socket) do
     r = :rand.uniform(10) |> Integer.to_string()
     IO.inspect(r, label: "random")
     {:ok, assign(socket,
-        session_id: session["live_socket_id"],
         score: 0,
         message: "Make a guess:",
         random: r
       )}
   end
-
 
   def handle_event("guess", %{"number" => guess}, socket) do
     {message, score} = if guess == socket.assigns.random do
