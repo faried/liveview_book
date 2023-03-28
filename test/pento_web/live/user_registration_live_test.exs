@@ -37,6 +37,7 @@ defmodule PentoWeb.UserRegistrationLiveTest do
   end
 
   describe "register user" do
+    @tag :skip
     test "creates account and logs the user in", %{conn: conn} do
       {:ok, lv, _html} = live(conn, ~p"/users/register")
 

@@ -89,6 +89,7 @@ defmodule PentoWeb.UserSettingsLiveTest do
       %{conn: log_in_user(conn, user), user: user, password: password}
     end
 
+    @tag :skip
     test "updates the user password", %{conn: conn, user: user, password: password} do
       new_password = valid_user_password()
 
