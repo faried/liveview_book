@@ -101,4 +101,24 @@ defmodule Pento.Catalog do
   def change_product(%Product{} = product, attrs \\ %{}) do
     Product.changeset(product, attrs)
   end
+
+  @doc """
+  Marks down a product's unit price.
+
+  The new price must be lower than the product's existing price.
+
+  ## Examples
+
+      iex> markdown_product(product, %{unit_price: 2.0})
+      {:ok, %Product{}}
+
+      iex> markdown_product(product, %{unit_price: 99.0})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def markdown_product(%Product{} = product, %{unit_price: _} = attrs) do
+    product
+    |> Product.changeset_lower_price(attrs)
+    |> Repo.update()
+  end
 end
