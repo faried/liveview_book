@@ -21,7 +21,9 @@ defmodule PentoWeb.UserSessionController do
   defp create(conn, %{"user" => user_params}, info) do
     %{"email" => email, "username" => username, "password" => password} = user_params
 
-    user = Accounts.get_user_by_email_and_password(email, password) || Accounts.get_user_by_username_and_password(username, password)
+    user =
+      Accounts.get_user_by_email_and_password(email, password) ||
+        Accounts.get_user_by_username_and_password(username, password)
 
     if user do
       conn
