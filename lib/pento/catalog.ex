@@ -22,6 +22,19 @@ defmodule Pento.Catalog do
   end
 
   @doc """
+  Returns the list of products filtered by SKU.
+
+  ## Examples
+
+      iex> find_product_by_sku(sku)
+      [%Product{}, ...]
+
+  """
+  def find_product_by_sku(sku) do
+    Repo.one(from p in Product, where: p.sku == ^sku)
+  end
+
+  @doc """
   Gets a single product.
 
   Raises `Ecto.NoResultsError` if the Product does not exist.
@@ -120,5 +133,9 @@ defmodule Pento.Catalog do
     product
     |> Product.changeset_lower_price(attrs)
     |> Repo.update()
+  end
+
+  def search_by_sku(%Product{} = product, attrs \\ %{}) do
+    Product.changeset_search(product, attrs)
   end
 end
